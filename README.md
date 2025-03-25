@@ -104,8 +104,8 @@ Este projeto tem como objetivo configurar um servidor web na AWS e implementar u
    touch "$LOG_FILE"
 
    send_discord_message() {
-      MESSAGE="🚨 **ALERTA:** O site $URL está fora do ar! Status HTTP: $STATUS"
-      curl -H "Content-Type: application/json" \
+      MESSAGE="🚨 **ALERTA:** O site $URL está fora do ar!"
+      curl -s -o /dev/null -H "Content-Type: application/json" \
             -X POST \
             -d "{\"content\": \"$MESSAGE\"}" \
             "$DISCORD_WEBHOOK_URL"
@@ -140,6 +140,10 @@ Este projeto tem como objetivo configurar um servidor web na AWS e implementar u
    Reiniciar:
    ```bash
    sudo systemctl restart cron
+   ```
+   Conceder as permissões corretas ao arquivo de log:
+   ```bash
+   sudo chmod 666 /var/log/meu_script.log
    ```
 
 ### 4️⃣ Testes
