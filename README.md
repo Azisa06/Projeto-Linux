@@ -107,8 +107,6 @@ Este projeto tem como objetivo configurar um servidor web na AWS e implementar u
       ![](images/image18.png)
 
    ### 2. Criar um script Bash para verificar se o servidor está online com ```sudo nano /usr/local/bin/monitor_website.sh```:
-   Substitua *"URL_DO_SEU_WEBHOOK"* no script pelo link copiado do discord.  
-   Substitua *"IP_PUBLICO_DA_INSTANCIA"* no script pelo IP público da EC2
    ```bash
    #!/bin/bash
 
@@ -135,6 +133,9 @@ Este projeto tem como objetivo configurar um servidor web na AWS e implementar u
       echo "$(date) - ✅ Site funcionando normalmente." >> "$LOG_FILE"
    fi
    ```
+   Substitua *"URL_DO_SEU_WEBHOOK"* no script pelo link copiado do discord.  
+   Substitua *"IP_PUBLICO_DA_INSTANCIA"* no script pelo IP público da EC2.
+   
 2. Tornar o script executável:
    ```bash
    sudo chmod +x /usr/local/bin/monitor_website.sh
