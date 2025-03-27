@@ -22,11 +22,11 @@ Este projeto tem como objetivo configurar um servidor web na AWS e implementar u
       ![alt text](images/image4.png)
    * ### No security group já existente, adicione as regras de entrada clicando com o botão direito do mouse e selecionando a opção: "Edit inbound rules".
       ![alt text](images/image5.png)
-   * ### Primeiro remova a regra já existente, clicando em "Delete" , depois clique em "Add rule" no canto inferior esquerdo e adicioce a regra de SSH com seu IP (que aparecerá automáticamente), e então adicione outra regra como HTTP e salve tudo clicando em "Save rules" no canto inferior direito.
+   * ### Primeiro remova a regra já existente, clicando em "Delete" , depois clique em "Add rule" no canto inferior esquerdo e adicione a regra de SSH com seu IP (que aparecerá automáticamente), e então adicione outra regra como HTTP e salve tudo clicando em "Save rules" no canto inferior direito.
       ![alt text](images/image6.png)
    * ### Novamente clique o com o botão direito do mouse no security group, e dessa vez selecione "Edit outbound rules" para editar as regras de saída.
       ![alt text](images/image7.png)
-   * ### Remova a regra existente, adicione estas duas (como na imagem) e salve tudo.
+   * ### Delete a regra existente, adicione estas duas regras como "Anywhere-IPv4" e salve:
       ![alt text](images/image8.png)
 ### 3. Criar uma **instância EC2** na AWS:
    * ### Na página inicial do console AWS, pesquise por "EC2".
@@ -36,14 +36,16 @@ Este projeto tem como objetivo configurar um servidor web na AWS e implementar u
       ![alt text](images/image10.png)
    * ### Logo abaixo, em "Key pair", clique em "create new key pair", para criar um novo par de chaves.
       ![alt text](images/image11.png)
-   * ### Crie um par de chaver com as seguintes configurações (como na imagem) e salve.
-      ![alt text](images/image12.png)
+   * ### Crie um par de chaves com as seguintes configurações (como na imagem) e salve.
+      ![alt text](images/image12.png)  
       Observe que iniciará o download da chave em seu computador.
    * ### Em seguida, clique em "Edit" no canto superior direito da seção "Network settings".
    * ### Selecione a VPC préviamente criada, selecione uma sub-net pública, selecione a opção "Enable" em "Auto-assign public IP" e escolha o security group já criado.
       ![alt text](images/image13.png)
    * ### Para finalizar, clique em "Launch instance" no canto inferior direito.
       ![alt text](images/image14.png)
+   **A instância estará pronta para uso, quando este status aparecer:**
+      ![alt text](images/image14_1.png)
 ### 4. Acessar a instância via **SSH** para continuar a configuração
    * 1. Se estiver usando WSL, sua chave se encontrará neste caminho:
       ```bash
@@ -57,10 +59,13 @@ Este projeto tem como objetivo configurar um servidor web na AWS e implementar u
       ```bash
       ssh -i /mnt/c/Users/seuUserWindows/Downloads/suaChave.pem ubuntu@IP_publico_instancia
       ```
+      **Onde encontrar o IP público da instância:**
+      - Pesquisando por "EC2" na AWS, na parte de "Instances" basta selecionar a instância desejada, logo abaixo clicar em "Networking" e ali estará o IP público:
+      ![alt text](images/image14_2.png)
 ## 2️⃣ Configuração do Servidor Web
    * 1. Instalar o **Nginx** na EC2:
       ```bash
-      sudo apt update -y
+      sudo apt update
       sudo apt install nginx -y
       ```
    * 2. Iniciar o serviço Nginx:
@@ -170,7 +175,7 @@ Este projeto tem como objetivo configurar um servidor web na AWS e implementar u
 3. Verificar se a notificação foi enviada para o Discord
 4. Reiniciar o Nginx:
    ```bash
-   sudo systenctl start nginx
+   sudo systemctl start nginx
    ```
 5. Confirmar que novas mensagens são geradas corretamente no log, usando:
    ```bash
